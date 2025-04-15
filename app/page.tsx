@@ -53,11 +53,13 @@ export default function Home() {
     </GuideInfoBox>
   );
   return (
-    <ChatWindow
-      endpoint="api/chat"
-      emoji="🏴‍☠️"
-      placeholder="I'm an LLM pretending to be a pirate! Ask me about the pirate life!"
-      emptyStateComponent={InfoCard}
-    />
+    <>
+      <ChatWindow
+        endpoint="api/chat"
+        emoji="🏴‍☠️"
+        placeholder="I'm an LLM pretending to be a pirate! Ask me about the pirate life!"
+        emptyStateComponent={InfoCard}
+      />
+    </>
   );
 }
