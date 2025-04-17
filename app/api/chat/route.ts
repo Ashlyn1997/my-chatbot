@@ -19,6 +19,19 @@ Current conversation:
 User: {input}
 AI:`;
 
+// Define the initial prompt for the flowchart assistant
+const FLOWCHART_SYSTEM_PROMPT = `You are a flowchart specialist that helps users create and modify Mermaid-syntax flowcharts.
+
+When responding to a user request, please follow these guidelines:
+1. Always include the COMPLETE, UPDATED flowchart Mermaid code in your response.
+2. Put the code in a code block with the mermaid syntax tag: \`\`\`mermaid ... \`\`\`
+3. Keep your explanations brief and focused on the changes you've made.
+4. Ensure your Mermaid syntax is correct and follows best practices.
+5. For user experience, maintain the graph TD direction unless specifically asked to change it.
+
+The user will provide the current flowchart (if any) in their message. If they don't, assume they want to start from scratch.`;
+
+
 /**
  * This handler initializes and calls a simple chain with a prompt,
  * chat model, and output parser. See the docs for more information:

@@ -31,22 +31,26 @@ function ChatMessages(props: {
   className?: string;
 }) {
   return (
-    <div className="flex flex-col max-w-[768px] mx-auto pb-12 w-full">
-      {props.messages.map((m, i) => {
-        if (m.role === "system") {
-          return <IntermediateStep key={m.id} message={m} />;
-        }
+    <div className={cn("flex flex-col w-full py-4", props.className)}>
+      {props.messages.length === 0 ? (
+        props.emptyStateComponent
+      ) : (
+        props.messages.map((m, i) => {
+          if (m.role === "system") {
+            return <IntermediateStep key={m.id} message={m} />;
+          }
 
-        const sourceKey = (props.messages.length - 1 - i).toString();
-        return (
-          <ChatMessageBubble
-            key={m.id}
-            message={m}
-            aiEmoji={props.aiEmoji}
-            sources={props.sourcesForMessages[sourceKey]}
-          />
-        );
-      })}
+          const sourceKey = (props.messages.length - 1 - i).toString();
+          return (
+            <ChatMessageBubble
+              key={m.id}
+              message={m}
+              aiEmoji={props.aiEmoji}
+              sources={props.sourcesForMessages[sourceKey]}
+            />
+          );
+        })
+      )}
     </div>
   );
 }
@@ -77,30 +81,26 @@ export function ChatInput(props: {
       }}
       className={cn("flex w-full flex-col", props.className)}
     >
-      <div className="border border-input bg-secondary rounded-lg flex flex-col gap-2 max-w-[768px] w-full mx-auto">
+      <div className="flex w-full items-center border border-input bg-secondary rounded-lg">
         <input
           value={props.value}
           placeholder={props.placeholder}
           onChange={props.onChange}
-          className="border-none outline-none bg-transparent p-4"
+          className="flex-1 border-none outline-none bg-transparent p-3"
         />
-
-        <div className="flex justify-between ml-4 mr-2 mb-2">
-          <div className="flex gap-3">{props.children}</div>
-
-          <div className="flex gap-2 self-end">
-            {props.actions}
-            <Button type="submit" className="self-end" disabled={disabled}>
-              {props.loading ? (
-                <span role="status" className="flex justify-center">
-                  <LoaderCircle className="animate-spin" />
-                  <span className="sr-only">Loading...</span>
-                </span>
-              ) : (
-                <span>Send</span>
-              )}
-            </Button>
-          </div>
+        <div className="flex items-center px-2">
+          {props.children}
+          {props.actions}
+          <Button type="submit" size="sm" disabled={disabled} className="ml-1">
+            {props.loading ? (
+              <span role="status">
+                <LoaderCircle className="animate-spin w-4 h-4" />
+                <span className="sr-only">Loading...</span>
+              </span>
+            ) : (
+              <span>发送</span>
+            )}
+          </Button>
         </div>
       </div>
     </form>
@@ -151,12 +151,12 @@ export function ChatLayout(props: { content: ReactNode; footer: ReactNode }) {
   return (
     <StickToBottom>
       <StickyToBottomContent
-        className="absolute inset-0"
-        contentClassName="py-8 px-2"
+        className="h-full flex flex-col"
+        contentClassName="flex-1 overflow-y-auto px-2"
         content={props.content}
         footer={
-          <div className="sticky bottom-8 px-2">
-            <ScrollToBottom className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4" />
+          <div className="p-2 border-t border-gray-200">
+            <ScrollToBottom className="absolute bottom-16 left-1/2 -translate-x-1/2 mb-1" />
             {props.footer}
           </div>
         }
