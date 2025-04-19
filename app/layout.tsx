@@ -62,8 +62,8 @@ export default function RootLayout({
       <body className={publicSans.className}>
         <AuthProvider>
           <NuqsAdapter>
-            <div className="bg-secondary grid grid-rows-[auto,1fr] h-[100dvh]">
-              <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
+            <div className="grid grid-rows-[auto,1fr] h-[100dvh]">
+              {/* <div className="grid grid-cols-[1fr,auto] gap-2 p-4">
                 <div className="flex gap-4 flex-col md:flex-row md:items-center">
                   <a
                     href="https://js.langchain.com"
@@ -93,8 +93,8 @@ export default function RootLayout({
                     </a>
                   </Button>
                 </div>
-              </div>
-              <div className="bg-background mx-4 relative grid rounded-t-2xl border border-input border-b-0">
+              </div> */}
+              <div className="bg-background relative grid rounded-t-2xl border border-input border-b-0">
                 <div className="absolute inset-0">{children}</div>
               </div>
             </div>

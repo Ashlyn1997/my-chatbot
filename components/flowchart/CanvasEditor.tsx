@@ -97,8 +97,6 @@ const convertExcalidrawToMermaid = (
     }
   });
 
-  console.log("Text elements found:", Object.keys(textElements).length);
-  console.log("Converting elements:", elements.length);
 
   // Process elements
   elements.forEach((element) => {
@@ -193,9 +191,6 @@ const convertExcalidrawToMermaid = (
     }
   });
 
-  // Debug info
-  console.log("Processed nodes:", Object.keys(nodes).length);
-  console.log("Processed connections:", connections.length);
 
   // Generate nodeIds map for consistent IDs
   const nodeIds: Record<string, string> = {};
@@ -273,7 +268,6 @@ export default function CanvasEditor({ height = "500px" }: CanvasEditorProps) {
 
       // 跳过相同代码的更新，除非强制更新
       if (effectiveCode === lastCodeRef.current && !forceUpdate) {
-        console.log("相同代码，跳过更新");
         return;
       }
 
@@ -521,9 +515,8 @@ export default function CanvasEditor({ height = "500px" }: CanvasEditorProps) {
       }}
     >
       {/* 控制按钮 */}
-      <div className="absolute top-2 right-2 z-10 p-2 bg-white/90 rounded shadow-sm">
+      <div className="absolute bottom-12 right-2 z-10 p-2 bg-white/90 rounded shadow-sm">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-500">画布编辑模式</span>
           <button
             onClick={forceReload}
             className="text-blue-500 hover:text-blue-700 text-xs px-2 py-1 rounded border border-blue-200 hover:bg-blue-50"

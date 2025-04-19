@@ -7,7 +7,6 @@ import Toolbar from "@/components/flowchart/Toolbar";
 import { Message } from "ai";
 import { useChat } from "ai/react";
 import { toast } from "sonner";
-import { IntermediateStep } from "@/components/IntermediateStep";
 import { ChatMessageBubble } from "@/components/ChatMessageBubble";
 import { Button } from "@/components/ui/button";
 import { LoaderCircle } from "lucide-react";
@@ -15,7 +14,6 @@ import { LoaderCircle } from "lucide-react";
 // Dynamically import components to avoid server-side rendering issues
 // with browser-specific dependencies
 const CodeEditor = dynamic(() => import("@/components/flowchart/CodeEditor"), { ssr: false });
-const MermaidRenderer = dynamic(() => import("@/components/flowchart/MermaidRenderer"), { ssr: false });
 const CanvasEditor = dynamic(() => import("@/components/flowchart/CanvasEditor"), { ssr: false });
 // Use our custom endpoint for flowchart AI
 const FLOWCHART_ENDPOINT = "/api/chart";
@@ -137,19 +135,15 @@ My request: ${userMessage.content}`;
     );
   }
 
-  console.log("Current mode:", activeMode);
-  console.log("Current mermaid code:", mermaidCode);
-
   return (
     <div className="h-screen flex flex-col">
-      <div className="container mx-auto px-4 py-2">
-        {/* <h1 className="text-2xl font-bold mb-2">流程图助手</h1> */}
+      <div>
         <Toolbar />
       </div>
 
       <div className="flex-1 flex overflow-hidden">
         {/* Left side: Editor or AI Chat based on mode */}
-        <div className="w-[500px] border-r border-gray-200 flex flex-col bg-white">
+        <div className="w-[500px] border-r border-gray-200 bg-gray-50 flex flex-col bg-gray-20">
           {activeMode === 'ai' ? (
             <>
               <div className="flex-1 overflow-y-auto px-4 py-4">
@@ -200,13 +194,13 @@ My request: ${userMessage.content}`;
               </div>
             </>
           ) : (
-            <CodeEditor height="calc(100vh - 80px)" />
+            <CodeEditor height="100%" />
           )}
         </div>
 
         {/* Right side: Always show the canvas */}
         <div className="flex-1 bg-white">
-          <CanvasEditor height="calc(100vh - 80px)" />
+          <CanvasEditor height="100%" />
         </div>
       </div>
     </div>
